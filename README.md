@@ -19,5 +19,5 @@ Este é um sistema de login simples desenvolvido em Python com a biblioteca Cust
    ```bash
    pip install customtkinter
 4. Execute o script main.py:
-  ```bash
-  python main.py
+   ```bash
+   python main.py
