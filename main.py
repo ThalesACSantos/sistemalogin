@@ -1,4 +1,5 @@
-sistemaloginimport customtkinter as ctk
+#sistemalogin
+import customtkinter as ctk
 import os
 import re
 
