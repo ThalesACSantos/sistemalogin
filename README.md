@@ -24,6 +24,7 @@ Este é um sistema de login simples desenvolvido em Python com a biblioteca Cust
 
 
 Estrutura do código
+
 main.py: Contém o código principal do sistema de login, incluindo a interface gráfica e as funções de cadastro e login.
 usuarios.txt: Arquivo de texto que armazena as informações dos usuários (nome de usuário e senha separados por vírgula).
 Dependências
