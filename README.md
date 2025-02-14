@@ -24,12 +24,16 @@ Este é um sistema de login simples desenvolvido em Python com a biblioteca Cust
 
 
 ## Estrutura do código
-## main.py: Contém o código principal do sistema de login, incluindo a interface gráfica e as funções de cadastro e login.
+## main.py: 
+Contém o código principal do sistema de login, incluindo a interface gráfica e as funções de cadastro e login.
 
-## usuarios.txt: Arquivo de texto que armazena as informações dos usuários (nome de usuário e senha separados por vírgula).
+## usuarios.txt: 
+Arquivo de texto que armazena as informações dos usuários (nome de usuário e senha separados por vírgula).
 
-## Dependências
-## CustomTkinter: Biblioteca para criação de interfaces gráficas personalizadas em Python.
+# Dependências
+
+## CustomTkinter: 
+Biblioteca para criação de interfaces gráficas personalizadas em Python.
 
 ## Observações
 As senhas são armazenadas em texto plano no arquivo usuarios.txt, o que não é recomendado para sistemas de login em produção. Em vez disso, use técnicas de hash para armazenar as senhas de forma segura.
@@ -38,6 +42,6 @@ O código foi desenvolvido para fins de demonstração e pode ser aprimorado par
 ## Contribuições
 Contribuições são sempre bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
 
-##Licença
+## Licença
 Este projeto está sob a licença MIT. Consulte o arquivo LICENSE para obter mais detalhes.
 
