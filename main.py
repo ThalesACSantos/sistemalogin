@@ -90,7 +90,7 @@ def login():
 # Criando a interface gráfica
 app = ctk.CTk()
 app.title("Sistema de Login")
-app.geometry("400x500")
+app.geometry("350x350")
 
 frame = ctk.CTkFrame(master=app)
 frame.pack(pady=20, padx=20, fill="both", expand=True)
