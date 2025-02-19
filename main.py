@@ -2,6 +2,8 @@ import customtkinter as ctk
 import os
 import re
 import webbrowser  # Importa o módulo webbrowser
+from PIL import Image  # Importa a biblioteca PIL para trabalhar com imagens
+
 
 # Configuração inicial do CustomTkinter
 ctk.set_appearance_mode("dark")
@@ -9,6 +11,19 @@ ctk.set_default_color_theme("blue")
 
 # Nome do arquivo para armazenar os usuários
 ARQUIVO_USUARIOS = "usuarios.txt"
+
+# Variável global para controlar a visibilidade da senha
+senha_visivel = False
+
+# Carregar imagens (certifique-se de que os caminhos estejam corretos)
+try:
+    olho_aberto = ctk.CTkImage(light_image=Image.open(os.path.join("imagens", "olho_aberto.png")),
+                                dark_image=Image.open(os.path.join("imagens", "olho_aberto.png")))
+    olho_fechado = ctk.CTkImage(light_image=Image.open(os.path.join("imagens", "olho_fechado.png")),
+                                 dark_image=Image.open(os.path.join("imagens", "olho_fechado.png")))
+except FileNotFoundError:
+    print("Erro: Imagens não encontradas. Certifique-se de que os arquivos 'olho_aberto.png' e 'olho_fechado.png' estejam na pasta 'imagens'.")
+    exit()  # Encerra o programa se as imagens não forem encontradas
 
 
 def salvar_usuario(username, password):
@@ -69,6 +84,7 @@ def cadastrar():
     except Exception as e:
         print(f"Erro ao cadastrar usuário: {e}")
 
+
 def login():
     try:
         username = entry_usuario.get().strip()
@@ -87,6 +103,30 @@ def login():
         print(f"Erro ao fazer login: {e}")
 
 
+def toggle_senha():
+    global senha_visivel
+    senha_visivel = not senha_visivel
+
+    # Obtém a coordenada y do campo de senha
+    try:
+        senha_y = entry_senha.winfo_y()
+        if senha_y > 0:
+            mostrar_senha_button.place(x=250, y=senha_y)
+        else:
+            mostrar_senha_button.place(x=250, y=113)  # Posiciona o botão ao lado do campo de senha
+    except Exception as e:
+        print(f"Erro ao tentar posicionar {e}")
+
+    if senha_visivel:
+        entry_senha.configure(show="")
+
+        # Posiciona o botão de olho alinhado com o campo de senha
+        mostrar_senha_button.configure(image=olho_aberto)
+    else:
+        entry_senha.configure(show="*")
+        mostrar_senha_button.configure(image=olho_fechado)
+
+
 # Criando a interface gráfica
 app = ctk.CTk()
 app.title("Sistema de Login")
@@ -103,6 +143,10 @@ entry_usuario.pack(pady=5)
 
 entry_senha = ctk.CTkEntry(master=frame, placeholder_text="Senha", show="*")
 entry_senha.pack(pady=5)
+
+# Botão para mostrar/ocultar senha
+mostrar_senha_button = ctk.CTkButton(master=frame, bg_color="white", image=olho_fechado, text="", width=30, height=30, command=toggle_senha)
+mostrar_senha_button.place(x=250, y=113)  # Posiciona o botão ao lado do campo de senha
 
 btn_login = ctk.CTkButton(master=frame, text="Login", command=login)
 btn_login.pack(pady=5)
