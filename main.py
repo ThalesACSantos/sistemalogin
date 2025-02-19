@@ -1,7 +1,7 @@
-#sistemalogin
 import customtkinter as ctk
 import os
 import re
+import webbrowser  # Importa o módulo webbrowser
 
 # Configuração inicial do CustomTkinter
 ctk.set_appearance_mode("dark")
@@ -80,6 +80,7 @@ def login():
 
         if verificar_usuario(username, password):
             label_status.configure(text="Login realizado com sucesso!", text_color="green")
+            webbrowser.open_new_tab("https://sites.google.com/view/roboticamarte/mat%C3%A9rias/python-em-a%C3%A7%C3%A3o?pli=1")  # Abre o site
         else:
             label_status.configure(text="Usuário ou senha incorretos!", text_color="red")
     except Exception as e:
@@ -89,12 +90,12 @@ def login():
 # Criando a interface gráfica
 app = ctk.CTk()
 app.title("Sistema de Login")
-app.geometry("400x300")
+app.geometry("400x500")
 
 frame = ctk.CTkFrame(master=app)
 frame.pack(pady=20, padx=20, fill="both", expand=True)
 
-label_titulo = ctk.CTkLabel(master=frame, text="Login / Cadastro", font=("Arial", 20))
+label_titulo = ctk.CTkLabel(master=frame, text="Python em Ação :\n Fazer Login", font=("Arial", 20))
 label_titulo.pack(pady=12)
 
 entry_usuario = ctk.CTkEntry(master=frame, placeholder_text="Usuário")
@@ -106,8 +107,11 @@ entry_senha.pack(pady=5)
 btn_login = ctk.CTkButton(master=frame, text="Login", command=login)
 btn_login.pack(pady=5)
 
+label_cadastrar = ctk.CTkLabel(master=frame, text="Ainda não tenho conta", font=("Arial", 20))
+label_cadastrar.pack(pady=10)
+
 btn_cadastrar = ctk.CTkButton(master=frame, text="Cadastrar", command=cadastrar)
-btn_cadastrar.pack(pady=5)
+btn_cadastrar.pack(padx=5)
 
 label_status = ctk.CTkLabel(master=frame, text="", font=("Arial", 12))
 label_status.pack(pady=5)
