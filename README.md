@@ -1,4 +1,4 @@
-![loginCadastro](https://github.com/user-attachments/assets/e5554f6b-89f6-4c6b-b3fa-14f7c0a328cb)
+![loginCadastro3](https://github.com/user-attachments/assets/d2ff3a5e-86d7-4ddb-9db8-1d05bca0d9b6)
 
 # Sistema de Login com CustomTkinter
 
