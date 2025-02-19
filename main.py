@@ -12,8 +12,15 @@ ctk.set_default_color_theme("blue")
 # Nome do arquivo para armazenar os usuários
 ARQUIVO_USUARIOS = "usuarios.txt"
 
-# Variável global para controlar a visibilidade da senha
-senha_visivel = False
+# Verifica se o arquivo existe, se não existir, cria
+if not os.path.exists(ARQUIVO_USUARIOS):
+    try:
+        with open(ARQUIVO_USUARIOS, "w") as f:
+            pass  # Cria um arquivo vazio
+        print(f"Arquivo '{ARQUIVO_USUARIOS}' criado com sucesso.")
+    except Exception as e:
+        print(f"Erro ao criar arquivo: {e}")
+        exit()  # Encerra o programa se houver um erro na criação
 
 # Carregar imagens (certifique-se de que os caminhos estejam corretos)
 try:
@@ -25,6 +32,8 @@ except FileNotFoundError:
     print("Erro: Imagens não encontradas. Certifique-se de que os arquivos 'olho_aberto.png' e 'olho_fechado.png' estejam na pasta 'imagens'.")
     exit()  # Encerra o programa se as imagens não forem encontradas
 
+# Variável global para controlar a visibilidade da senha
+senha_visivel = False
 
 def salvar_usuario(username, password):
     """Salva um novo usuário no arquivo."""
@@ -62,6 +71,15 @@ def cadastrar():
     try:
         username = entry_usuario.get().strip()
         password = entry_senha.get().strip()
+
+        # Validação do tamanho do nome de usuário e senha
+        if len(username) > 20:
+            label_status.configure(text="Nome de usuário muito longo (máximo 20 caracteres).", text_color="red")
+            return
+
+        if len(password) > 20:
+            label_status.configure(text="Senha muito longa (máximo 20 caracteres).", text_color="red")
+            return
 
         if not username or not password:
             label_status.configure(text="Preencha todos os campos!", text_color="red")
@@ -129,7 +147,7 @@ def toggle_senha():
 
 # Criando a interface gráfica
 app = ctk.CTk()
-app.title("Sistema de Login")
+app.title("Python em Ação")
 app.geometry("350x350")
 
 frame = ctk.CTkFrame(master=app)
@@ -138,10 +156,18 @@ frame.pack(pady=20, padx=20, fill="both", expand=True)
 label_titulo = ctk.CTkLabel(master=frame, text="Python em Ação :\n Fazer Login", font=("Arial", 20))
 label_titulo.pack(pady=12)
 
+def limitar_entrada(event):
+    entry = event.widget  # Obtém o widget que gerou o evento
+    conteudo = entry.get()
+    if len(conteudo) > 20:
+        entry.delete(20, ctk.END)  # Apaga os caracteres excedentes
+
 entry_usuario = ctk.CTkEntry(master=frame, placeholder_text="Usuário")
+entry_usuario.bind("<KeyRelease>", limitar_entrada)  # Vincula a função ao evento KeyRelease
 entry_usuario.pack(pady=5)
 
 entry_senha = ctk.CTkEntry(master=frame, placeholder_text="Senha", show="*")
+entry_senha.bind("<KeyRelease>", limitar_entrada)  # Vincula a função ao evento KeyRelease
 entry_senha.pack(pady=5)
 
 # Botão para mostrar/ocultar senha
