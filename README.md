@@ -25,7 +25,6 @@ Este é um sistema de login simples desenvolvido em Python com a biblioteca Cust
    ```bash
    python main.py
 
-
 ## Estrutura do código
 ## main.py: 
 Contém o código principal do sistema de login, incluindo a interface gráfica e as funções de cadastro e login.
