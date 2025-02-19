@@ -1,4 +1,4 @@
-![loginCadastro3](https://github.com/user-attachments/assets/d2ff3a5e-86d7-4ddb-9db8-1d05bca0d9b6)
+![loginCadastro2](https://github.com/user-attachments/assets/7f14454b-f33d-4f8d-bad7-ac353e09d063)
 
 # Sistema de Login com CustomTkinter
 
@@ -18,7 +18,10 @@ Este é um sistema de login simples desenvolvido em Python com a biblioteca Cust
 3. Instale as dependências necessárias:
    ```bash
    pip install customtkinter
-4. Execute o script main.py:
+4. Instale as dependências necessárias do PIL:
+   ```bash
+   pip install Pillow
+5. Execute o script main.py:
    ```bash
    python main.py
 
