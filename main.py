@@ -24,12 +24,12 @@ if not os.path.exists(ARQUIVO_USUARIOS):
 
 # Carregar imagens (certifique-se de que os caminhos estejam corretos)
 try:
-    olho_aberto = ctk.CTkImage(light_image=Image.open(os.path.join("imagens", "olho_aberto.png")),
-                                dark_image=Image.open(os.path.join("imagens", "olho_aberto.png")))
-    olho_fechado = ctk.CTkImage(light_image=Image.open(os.path.join("imagens", "olho_fechado.png")),
-                                 dark_image=Image.open(os.path.join("imagens", "olho_fechado.png")))
+    olho_aberto_cinza = ctk.CTkImage(light_image=Image.open(os.path.join("imagens", "olho_aberto_cinza.png")),
+                                dark_image=Image.open(os.path.join("imagens", "olho_aberto_cinza.png")))
+    olho_fechado_cinza = ctk.CTkImage(light_image=Image.open(os.path.join("imagens", "olho_fechado_cinza.png")),
+                                 dark_image=Image.open(os.path.join("imagens", "olho_fechado_cinza.png")))
 except FileNotFoundError:
-    print("Erro: Imagens não encontradas. Certifique-se de que os arquivos 'olho_aberto.png' e 'olho_fechado.png' estejam na pasta 'imagens'.")
+    print("Erro: Imagens não encontradas. Certifique-se de que os arquivos 'olho_aberto_cinza.png' e 'olho_fechado_cinza.png' estejam na pasta 'imagens'.")
     exit()  # Encerra o programa se as imagens não forem encontradas
 
 # Variável global para controlar a visibilidade da senha
@@ -125,24 +125,14 @@ def toggle_senha():
     global senha_visivel
     senha_visivel = not senha_visivel
 
-    # Obtém a coordenada y do campo de senha
-    try:
-        senha_y = entry_senha.winfo_y()
-        if senha_y > 0:
-            mostrar_senha_button.place(x=250, y=senha_y)
-        else:
-            mostrar_senha_button.place(x=250, y=113)  # Posiciona o botão ao lado do campo de senha
-    except Exception as e:
-        print(f"Erro ao tentar posicionar {e}")
-
     if senha_visivel:
         entry_senha.configure(show="")
 
         # Posiciona o botão de olho alinhado com o campo de senha
-        mostrar_senha_button.configure(image=olho_aberto)
+        mostrar_senha_button.configure(image=olho_aberto_cinza)
     else:
         entry_senha.configure(show="*")
-        mostrar_senha_button.configure(image=olho_fechado)
+        mostrar_senha_button.configure(image=olho_fechado_cinza)
 
 
 # Criando a interface gráfica
@@ -151,7 +141,7 @@ app.title("Python em Ação")
 app.geometry("350x350")
 
 frame = ctk.CTkFrame(master=app)
-frame.pack(pady=20, padx=20, fill="both", expand=True)
+frame.pack(pady=20, padx=40, fill="both", expand=True)
 
 label_titulo = ctk.CTkLabel(master=frame, text="Python em Ação :\n Fazer Login", font=("Arial", 20))
 label_titulo.pack(pady=12)
@@ -159,20 +149,34 @@ label_titulo.pack(pady=12)
 def limitar_entrada(event):
     entry = event.widget  # Obtém o widget que gerou o evento
     conteudo = entry.get()
-    if len(conteudo) > 20:
-        entry.delete(20, ctk.END)  # Apaga os caracteres excedentes
+    if len(conteudo) > 13:
+        entry.delete(13, ctk.END)  # Apaga os caracteres excedentes
 
-entry_usuario = ctk.CTkEntry(master=frame, placeholder_text="Usuário")
-entry_usuario.bind("<KeyRelease>", limitar_entrada)  # Vincula a função ao evento KeyRelease
-entry_usuario.pack(pady=5)
+# Frame para usuário e senha
+frame_entradas = ctk.CTkFrame(master=frame)
+frame_entradas.pack(pady=5)
 
-entry_senha = ctk.CTkEntry(master=frame, placeholder_text="Senha", show="*")
-entry_senha.bind("<KeyRelease>", limitar_entrada)  # Vincula a função ao evento KeyRelease
-entry_senha.pack(pady=5)
+# Campo de usuário
+entry_usuario = ctk.CTkEntry(master=frame_entradas, placeholder_text="Usuário")
+entry_usuario.bind("<KeyRelease>", limitar_entrada)
+entry_usuario.grid(row=0, column=0, sticky="ew")
 
-# Botão para mostrar/ocultar senha
-mostrar_senha_button = ctk.CTkButton(master=frame, bg_color="white", image=olho_fechado, text="", width=30, height=30, command=toggle_senha)
-mostrar_senha_button.place(x=250, y=113)  # Posiciona o botão ao lado do campo de senha
+# Frame para senha e botão de olho
+frame_senha = ctk.CTkFrame(master=frame_entradas)
+frame_senha.grid(row=1, column=0, sticky="ew", pady=5)
+
+# Campo de senha
+entry_senha = ctk.CTkEntry(master=frame_senha, placeholder_text="Senha", show="*")
+entry_senha.bind("<KeyRelease>", limitar_entrada)
+entry_senha.grid(row=0, column=0, sticky="ew")
+
+# Botão de olho
+mostrar_senha_button = ctk.CTkButton(master=frame_senha, fg_color="light gray", image=olho_fechado_cinza, text="", width=15, height=2, command=toggle_senha, corner_radius=150)
+mostrar_senha_button.grid(row=0, column=0, sticky="e", padx=(0, 5))  # Posiciona o botão à direita e com padx
+
+# Configura as colunas para expandir
+frame_entradas.columnconfigure(0, weight=1)
+frame_senha.columnconfigure(0, weight=1)
 
 btn_login = ctk.CTkButton(master=frame, text="Login", command=login)
 btn_login.pack(pady=5)
