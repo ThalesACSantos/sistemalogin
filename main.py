@@ -244,7 +244,9 @@ def limitar_entrada(event):
 # Criando a interface gráfica
 app = ctk.CTk()
 app.title("Python em Ação")
-app.geometry("350x350")
+#app.geometry("350x350")
+app.geometry("400x500")
+
 
 frame = ctk.CTkFrame(master=app)
 frame.pack(pady=20, padx=40, fill="both", expand=True)
