@@ -1,8 +1,2 @@
-Yagozinho,yago123
-thales,Tha123
-thz,Th@les09
-yago,Yago@123
-thales2,Tha1237
-thales3,Tha12378
-thales4,Tha123
-thal,thales
+Thales,thalexfree@gmail.com,Tha123
+Yago,loliayago71@gmail.com,loli123
